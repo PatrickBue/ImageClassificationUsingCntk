@@ -2,25 +2,6 @@
 IMAGE CLASSIFICATION USING MICROSOFT COGNITIVE TOOLKIT (CNTK)
 ==============
 
----
-
-WARNING:   
-This is work in progress...
-The code is tested and works with CNTK v2.0, however the documentation is only partially written and might contain errors (since much of it is currently copy & pasted from my other tutorials).
-
----
-
-Functionality so far:
--	Download images from a provided list of urls
--	Splitting into train vs. test either randomly by filename, randomly by subdirectory, or using a provided list of test images
--	Dataset augmentation by adding rotated version of the training images (Note: CNTK supports other augmentation methods on-the-fly such as horizontal flipping or cropping, but not rotation)
--	(optionally) DNN refinement of a pre-trained ResNet model, with plot of the training and test accuracy as a function of the number of epochs
--	Running the DNN on all images in the dataset
--	(optionally) Training a Linear SVM on the output of the pre-trained (and possibly refined) DNN. Grid-search for the best C parameter, uses an efficient dedicated linear SVM implementation.
--	Quantitative evalutation: computation and plotting of the confusion matrix and precision/recall curve, using the test or the training set
--	Qualitative evaluation: visualization of the results
--	Active learning: UI to manually annotated more images. Images presented to the user are selected from possibly a very large dataset according to user-specfied criteria, e.g. images where the classifier is uncertain or images which are likely false positives.
-
 
 PREREQUISITES
 --------------
@@ -47,7 +28,7 @@ In the code snippet above, we assumed that the CNTK root directory is  *C:/local
 from this [page](http://www.lfd.uci.edu/~gohlke/pythonlibs/).
 
 Troubleshooting:
-- The error "Batch normalization training on CPU is not yet implemented" is thrown when trying to train the DNN using a system which does not have a GPU. This is a restriction from CNTK, and can be avoided using either an Azure GPU DSVM for training, or by setting the classifier in `PARAMETERS.py` to 'svm' which essentially deactivates DNN retraining (as explain in XXX).
+- The error "Batch normalization training on CPU is not yet implemented" is thrown when trying to train the DNN using a system which does not have a GPU. This is a restriction from CNTK, and can be avoided using either an Azure GPU DSVM for training, or by setting the classifier in `PARAMETERS.py` to 'svm' which essentially deactivates DNN retraining.
 
 
 
@@ -66,6 +47,18 @@ FOLDER STRUCTURE
 |/resources/python35_64_bit_requirements/|   Python wheels and requirements file for 64bit Python version 3.5
 
 All scripts are located in the root directory.
+
+FUNCTIONALITY
+--------------
+-	Download images from a provided list of urls
+-	Splitting into train vs. test either randomly by filename, randomly by subdirectory, or using a provided list of test images
+-	Dataset augmentation by adding rotated version of the training images (Note: CNTK supports other augmentation methods on-the-fly such as horizontal flipping or cropping, but not rotation)
+-	(optionally) DNN refinement of a pre-trained ResNet model, with plot of the training and test accuracy as a function of the number of epochs
+-	Running the DNN on all images in the dataset
+-	(optionally) Training a Linear SVM on the output of the pre-trained (and possibly refined) DNN. Grid-search for the best C parameter, uses an efficient dedicated linear SVM implementation.
+-	Quantitative evaluation: computation and plotting of the confusion matrix and precision/recall curve, using the test or the training set
+- Visualization of the results
+-	Active learning: UI to manually annotated more images. Images presented to the user are selected from possibly a very large dataset according to user-specified criteria, e.g. images where the classifier is uncertain or images which are likely false positives.
 
 
 PART 1
